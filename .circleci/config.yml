@@ -32,6 +32,10 @@ jobs:
       
       - store_artifacts:
           path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
+          - run:
+          name: install-aws
+          command: pip install awscli --upgrade --user
+          
       - run:
           name: Deploy to S3 if tests pass and branch is Master
           command: aws s3 sync target/demo-java-spring-0.0.1-SNAPSHOT.jar s3://devopsteam --delete
