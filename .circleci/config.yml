@@ -26,15 +26,13 @@ jobs:
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
       
       - run: mvn package
-      
-      - store_test_results:
-          path: target/surefire-reports
-      
-      - store_artifacts:
-          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
-          - run:
+      - run:
           name: install-aws
           command: pip install awscli --upgrade --user
+      - store_test_results:
+          path: target/surefire-reports      
+      - store_artifacts:
+          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar        
           
       - run:
           name: Deploy to S3 if tests pass and branch is Master
